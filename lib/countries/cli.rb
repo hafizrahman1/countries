@@ -14,6 +14,9 @@ class Countries::CLI
     #   2.Asia
     # DOC
     @regions = Countries::Country.region
+    @regions.each.with_index(1) do |region, i|
+      puts "#{i}. #{region.name} - "
+    end
   end
 
   def menu
@@ -23,19 +26,17 @@ class Countries::CLI
     while input != "exit"
         puts "Enter the number of the region you'd like more info on or type list again or type exit:"
         input = gets.strip.downcase
-        case input
-          when "1"
-            puts "More info on region 1...."
-          when "2"
-            puts "Mpre info on region 2...."
-          when "list"
-            list_regions
-          else
-            puts "Not sure you want, type list or exit."
-          end
-      end
-
+        
+        if input.to_i > 0
+          puts @regions[input.to_i - 1]
+        elsif input == "list"
+          list_regions
+        else
+          puts "Not sure you want, type list or exit."
+        end
     end
+
+  end
 
   def goodbye
     puts "Thank you using countries!!!"

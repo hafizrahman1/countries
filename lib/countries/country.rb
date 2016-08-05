@@ -3,10 +3,10 @@ class Countries::Country
 
   def self.region
     # I should return a bunch of regions
-    puts <<-DOC.gsub /^\s*/, ''
-      1.Americas
-      2.Asia
-    DOC
+    # puts <<-DOC.gsub /^\s*/, ''
+    #   1.Americas
+    #   2.Asia
+    # DOC
 
     region_1 = self.new #Country
     region_1.name = "Americas"
