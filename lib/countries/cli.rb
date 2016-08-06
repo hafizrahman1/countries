@@ -2,12 +2,12 @@
 class Countries::CLI
 
   def call
-    create_countries
+    store_countries
     list_regions
     menu
   end
 
-  def create_countries
+  def store_countries
     @regions = Countries::Country.region_list
     @all_countries = Countries::Country.all
   end
@@ -56,7 +56,7 @@ class Countries::CLI
     end
 
     countries.each.with_index(1) do |country, i|
-      puts "#{i}. #{country.name}."
+      puts "#{i}. #{country.name}"
     end
   end
 
