@@ -1,23 +1,39 @@
 class Countries::Country
-  attr_accessor :name, :countries
+  attr_accessor :name, :capital, :region, :altSpellings, :relevance, :region, :subregion, :translations, :population, :latlng, :demonym, :area, :gini, :timezones, :borders, :nativeName, :callingCodes, :topLevelDomain, :alpha2Code, :alpha3Code, :currencies, :languages
+  @@all = []
 
-  def self.region
-    # I should return a bunch of regions
-    # puts <<-DOC.gsub /^\s*/, ''
-    #   1.Americas
-    #   2.Asia
-    # DOC
+  def initialize(country_hash)
+    country_hash.each {|key, value| self.send(("#{key}="), value)}
+    @@all << self
+  end
 
-    region_1 = self.new #Country
-    region_1.name = "Americas"
-    region_1.countries = [1..10] #list of countries
+  def self.region_list
+    # go to the API, find the regions countries
+    # extract the attributes
+    # instantiate a region
+    regions = []
+    self.create_countries
 
-    region_2 = self.new
-    region_2.name = "Africa"
-    region_2.countries = [1..10]
+    self.all.each do |country|
+      regions << country.region
+    end
 
-    [region_1, region_2]
+    regions.uniq - ["", nil]
 
   end
+
+  def self.create_countries
+    doc = RestClient.get('https://restcountries.eu/rest/v1/all')
+    country_hash = JSON.parse(doc)
+    country_hash.each do |attributes|
+      self.new(attributes)
+    end
+
+  end
+
+  def self.all
+    @@all
+  end
+
 
 end

@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
 
-require "./lib/countries" 
+# require "./lib/countries" 
+require "bundler/setup"
+require "countries"
+
 Countries::CLI.new.call
