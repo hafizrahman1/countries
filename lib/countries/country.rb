@@ -1,5 +1,6 @@
 class Countries::Country
   attr_accessor :name, :capital, :region, :altSpellings, :relevance, :region, :subregion, :translations, :population, :latlng, :demonym, :area, :gini, :timezones, :borders, :nativeName, :callingCodes, :topLevelDomain, :alpha2Code, :alpha3Code, :currencies, :languages
+  API_URL = 'https://restcountries.eu/rest/v1/all'
   @@all = []
 
   def initialize(country_hash)
@@ -23,7 +24,7 @@ class Countries::Country
   end
 
   def self.create_countries
-    doc = RestClient.get('https://restcountries.eu/rest/v1/all')
+    doc = RestClient.get(API_URL)
     country_hash = JSON.parse(doc)
     country_hash.each do |attributes|
       self.new(attributes)
