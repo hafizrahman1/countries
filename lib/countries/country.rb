@@ -4,6 +4,7 @@ class Countries::Country
                 :translations, :population, :latlng, :demonym, :area, :gini, :timezones, 
                 :borders, :nativeName, :callingCodes, :topLevelDomain, :alpha2Code, :alpha3Code, 
                 :currencies, :languages
+
   API_URL = 'https://restcountries.eu/rest/v1/all'
   @@all = []
 

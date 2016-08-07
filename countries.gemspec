@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Hafizur Rahman"]
   spec.email         = ["hafizur.rahmanc@gmail.com"]
 
-  spec.summary       = %q{CLI Gem using restcountries.eu API}
+  spec.summary       = %q{Countries CLI Gem using restcountries.eu API}
   spec.description   = %q{Getting information about countries using RESTful API http://restcountries.eu}
   spec.homepage      = "https://github.com/hafizrahman1/countries"
   spec.license       = "MIT"

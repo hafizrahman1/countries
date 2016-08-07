@@ -16,9 +16,12 @@
 
  show a list of countries
  1. country name
- 2. country name
+ 2. country capital
+ 3. country currency
 
  Which country would you like to know details
  1. country name, capital, currency,population, area, etc
 
- ask the user if they would like to consider the menu again!  
+ ask the user if they would like to consider the menu again!
+
+ What is a regions?

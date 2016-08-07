@@ -2,9 +2,18 @@
 class Countries::CLI
 
   def call
+    greeting
     store_countries
     world_regions
     menu
+  end
+
+  def greeting
+    puts ColorizedString["\n >>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<< "].blue
+    print ColorizedString[" >>>"].blue
+    print ColorizedString[" Welcome to the countries CLI-GEM "].red.underline
+    print ColorizedString["<<< \n"].blue
+    puts ColorizedString[" >>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<< \n"].blue    
   end
 
   def store_countries
@@ -13,10 +22,10 @@ class Countries::CLI
   end
 
   def world_regions
-    puts "List of regions:"
-    puts "----------------"
+    puts " List of regions:".bold.blue
+    puts " ----------------".bold
     @regions.each.with_index(1) do |region, i|
-      puts "#{i}. #{region}"
+      puts " #{i}. #{region}\n".bold.red
     end
   end
 
@@ -25,19 +34,19 @@ class Countries::CLI
     input = nil
 
     while input != "exit"
-        puts "Enter the number of the region you'd like more info on or type list again or type exit:"
+        puts "\n Enter the number of the region you'd like more info on or type 'list' or 'exit'".bold.cyan
         input = gets.strip.downcase
         
         if input.to_i > 0 && input.to_i <= 5
           input_region = @regions[input.to_i - 1]
-          puts "#{input_region} region's list of countries, their capital and currency:"
-          puts "------------------------------------------------------------"
+          puts " Country name\t-\tCapital\t-\tCurrency".bold.blue
+          puts " ------------------------------------------------------------".bold
 
           country_list(input_region)
 
-          puts "------------------------------------------------------------"
+          puts " ------------------------------------------------------------".bold
 
-          puts "Enter the number of the country for details information of that country: "
+          puts "\nEnter the number of the country for details information".bold.cyan
 
           new_input = gets.strip.downcase
           if (new_input != "list" || new_input != "exit")
@@ -46,10 +55,12 @@ class Countries::CLI
 
         elsif input == "list"
           world_regions
+
         elsif input == "exit"
           goodbye
+          
         else
-          puts "Not sure you want, type list or exit."
+          puts "Not sure you want, type 'list' or 'exit'".bold.red
         end
     end
 
@@ -65,9 +76,9 @@ class Countries::CLI
     @countries.each.with_index(1) do |country, i|
 
       if (Money::Currency.find(country.currencies[0]))
-        puts "#{i}. #{country.name} - #{country.capital} - #{Money::Currency.find(country.currencies[0]).name} (#{country.currencies[0]})"
+        puts " #{i}. #{country.name} - #{country.capital} - #{Money::Currency.find(country.currencies[0]).name} (#{country.currencies[0]})".bold.green
       else
-        puts "#{i}. #{country.name} - #{country.capital} - (#{country.currencies[0]})"
+        puts " #{i}. #{country.name} - #{country.capital} - (#{country.currencies[0]})".bold.green
       end
 
     end
@@ -76,15 +87,15 @@ class Countries::CLI
   def country_details(region, input)
     country = @countries[input - 1]
 
-    puts "Country Name - Capital - Currency - Population - Region - Calling Codes - Languages"
-    puts "-----------------------------------------------------------------------------------"
-    puts "#{country.name} - #{country.capital} - #{country.currencies[0]} - #{country.population} - #{region} - +#{country.callingCodes[0]} - #{country.languages[0]}"
-    puts "-----------------------------------------------------------------------------------"
-    binding.pry
+    puts "\n Country Name - Capital - Currency - Population - Region - Calling Codes - Languages".bold.blue
+    puts " -----------------------------------------------------------------------------------"
+    puts " #{country.name} - #{country.capital} - #{country.currencies[0]} - #{country.population} - #{region} - +#{country.callingCodes[0]} - #{country.languages[0]}".bold.green
+    puts " -----------------------------------------------------------------------------------\n"
   end
 
   def goodbye
-    puts "Thank you for using countries GEM!"
+
+    puts "\n Thank you for using countries CLI-GEM!\n".bold.red
   end
 
 
