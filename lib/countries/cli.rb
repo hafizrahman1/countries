@@ -9,11 +9,11 @@ class Countries::CLI
   end
 
   def greeting
-    puts ColorizedString["\n >>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<< "].blue
-    print ColorizedString[" >>>"].blue
-    print ColorizedString[" Welcome to the countries CLI-GEM "].red.underline
-    print ColorizedString["<<< \n"].blue
-    puts ColorizedString[" >>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<< \n"].blue    
+    puts "\n >>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<< ".blue
+    print " >>>".blue
+    print " Welcome to the countries CLI-GEM ".red.underline
+    print "<<< \n".blue
+    puts " >>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<< \n".blue    
   end
 
   def store_countries
@@ -25,7 +25,7 @@ class Countries::CLI
     puts " List of regions:".bold.blue
     puts " ----------------".bold
     @regions.each.with_index(1) do |region, i|
-      puts " #{i}. #{region}\n".bold.red
+      puts " #{i}. #{region}".bold.red
     end
   end
 
@@ -46,7 +46,7 @@ class Countries::CLI
 
           puts " ------------------------------------------------------------".bold
 
-          puts "\nEnter the number of the country for details information".bold.cyan
+          puts "\nEnter the country number to get more details information".bold.cyan
 
           new_input = gets.strip.downcase
           if (new_input != "list" || new_input != "exit")
@@ -58,7 +58,7 @@ class Countries::CLI
 
         elsif input == "exit"
           goodbye
-          
+
         else
           puts "Not sure you want, type 'list' or 'exit'".bold.red
         end
@@ -75,26 +75,46 @@ class Countries::CLI
 
     @countries.each.with_index(1) do |country, i|
 
-      if (Money::Currency.find(country.currencies[0]))
-        puts " #{i}. #{country.name} - #{country.capital} - #{Money::Currency.find(country.currencies[0]).name} (#{country.currencies[0]})".bold.green
-      else
-        puts " #{i}. #{country.name} - #{country.capital} - (#{country.currencies[0]})".bold.green
-      end
+      puts " #{i}. #{country.name} - #{country.capital} - #{get_currency(country.currencies[0])} (#{country.currencies[0]})".bold.green
 
     end
   end
 
   def country_details(region, input)
     country = @countries[input - 1]
+    language = get_languange(country.languages[0])
+    currency = get_currency(country.currencies[0])
+
+    # if Money::Currency.find(country.currencies[0]).name
+
 
     puts "\n Country Name - Capital - Currency - Population - Region - Calling Codes - Languages".bold.blue
     puts " -----------------------------------------------------------------------------------"
-    puts " #{country.name} - #{country.capital} - #{country.currencies[0]} - #{country.population} - #{region} - +#{country.callingCodes[0]} - #{country.languages[0]}".bold.green
+    puts " #{country.name} - #{country.capital} - #{currency} - #{country.population} - #{region} - +#{country.callingCodes[0]} - #{language}".bold.green
     puts " -----------------------------------------------------------------------------------\n"
+
+  end
+
+  # Get the correct language from language symbol
+  def get_languange(language_symbol)
+    language = I18nData.languages.detect do |key, value|
+      key == language_symbol.upcase
+    end
+    language.last
+  end
+ 
+  # Get the correct currency name from currency symbol
+  def get_currency(currency_symbol)
+
+    if Money::Currency.find(currency_symbol)
+      Money::Currency.find(currency_symbol).name
+    else
+      currency_symbol
+    end
+
   end
 
   def goodbye
-
     puts "\n Thank you for using countries CLI-GEM!\n".bold.red
   end
 
