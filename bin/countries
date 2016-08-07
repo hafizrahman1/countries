@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-# require "./lib/countries" 
 require "bundler/setup"
 require "countries"
 

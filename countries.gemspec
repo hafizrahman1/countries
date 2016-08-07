@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["hafizur.rahmanc@gmail.com"]
 
   spec.summary       = %q{CLI Gem using restcountries.eu API}
-  spec.description   = %q{Basic API implementation for Countries using RESTful API http://restcountries.eu}
+  spec.description   = %q{Getting information about countries using RESTful API http://restcountries.eu}
   spec.homepage      = "https://github.com/hafizrahman1/countries"
   spec.license       = "MIT"
 
@@ -35,5 +35,10 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "json"
   spec.add_dependency "rest-client"
+  spec.add_dependency "money"
+  spec.add_dependency "i18n_data"
+  spec.add_dependency "colorize"
+
+
 
 end
