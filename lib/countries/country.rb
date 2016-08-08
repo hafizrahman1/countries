@@ -34,12 +34,10 @@ class Countries::Country
     country_hash.each do |attributes|
       self.new(attributes)
     end
-
   end
 
   def self.all
     @@all
   end
-
 
 end
