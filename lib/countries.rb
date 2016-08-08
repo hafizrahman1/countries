@@ -4,6 +4,7 @@ require 'pry'
 require 'money'
 require 'i18n_data'
 require 'colorize'
+#require 'command_line_reporter'
 
 require_relative "./countries/version"
 require_relative './countries/cli'

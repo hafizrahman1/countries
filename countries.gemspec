@@ -38,6 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "money"
   spec.add_dependency "i18n_data"
   spec.add_dependency "colorize"
+ #spec.add_dependency "command_line_reporter", ">=3.0"
 
 
 

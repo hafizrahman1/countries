@@ -6,12 +6,13 @@ class Countries::CLI
     store_countries
     world_regions
     menu
+    goodbye
   end
 
   def greeting
     puts "\n >>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<< ".blue
     print " >>>".blue
-    print " Welcome to the countries CLI-GEM ".red.underline
+    print " Welcome to the countries CLI-GEM ".bold.red
     print "<<< \n".blue
     puts " >>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<< \n".blue    
   end
@@ -23,7 +24,7 @@ class Countries::CLI
 
   def world_regions
     puts " List of regions:".bold.blue
-    puts " ----------------".bold
+    # puts " ----------------".bold
     @regions.each.with_index(1) do |region, i|
       puts " #{i}. #{region}".bold.red
     end
@@ -32,35 +33,49 @@ class Countries::CLI
   def menu
 
     input = nil
+    status = false
 
-    while input != "exit"
-        puts "\n Enter the number of the region you'd like more info on or type 'list' or 'exit'".bold.cyan
-        input = gets.strip.downcase
-        
-        if input.to_i > 0 && input.to_i <= 5
+    until status == true
+        puts "\n Enter the number of the region you'd like to get more info on or type 'list' or 'exit':".bold.cyan
+        input = digit_or_letter
+
+        case input
+
+        when 1..@regions.size
           input_region = @regions[input.to_i - 1]
-          puts " Country name\t-\tCapital\t-\tCurrency".bold.blue
-          puts " ------------------------------------------------------------".bold
+          #header :title => "Country name\t - \t Capital\t - \t Currency", :width => 80, :align => 'center', :rule => true, :bold => false, :timestamp => true
+          # puts " Country name\t-\tCapital\t-\tCurrency".bold.blue
+          # puts " ------------------------------------------------------------".bold
 
           country_list(input_region)
 
-          puts " ------------------------------------------------------------".bold
+          # For specific country information from the list of countries
+          new_input = nil
+          while new_input != "exit"
+            puts "\nEnter the country number to get more information or type 'exit':".bold.cyan
+            new_input = digit_or_letter
+            
+            case new_input
 
-          puts "\nEnter the country number to get more details information".bold.cyan
-
-          new_input = gets.strip.downcase
-          if (new_input != "list" || new_input != "exit")
-            country_details(input_region, new_input.to_i)
+            when (1..@countries.size)
+              country_details(input_region, new_input.to_i)
+            # when "list"
+            #   country_list(input_region)
+            when "exit"
+              break
+            else
+              puts "Please enter a valid input, 1-#{@countries.size}, 'list' or 'exit':"
+            end
           end
 
-        elsif input == "list"
+        when "list"
           world_regions
 
-        elsif input == "exit"
-          goodbye
+        when "exit"
+          status = true
 
         else
-          puts "Not sure you want, type 'list' or 'exit'".bold.red
+          puts "Please enter a valid input, 1-#{@regions.size}, 'list' or 'exit':".bold.red
         end
     end
 
@@ -68,16 +83,20 @@ class Countries::CLI
 
   def country_list(region)
     #print list of countries
-
     @countries = @all_countries.select do |country|
       country.region == region
     end
 
+    system "clear"
+    puts "List of countries of the #{region} region:".bold.red
+    puts "\n========Country name=========Capital==========Currency".bold.blue
+    # puts " ------------------------------------------------------------".bold
     @countries.each.with_index(1) do |country, i|
 
       puts " #{i}. #{country.name} - #{country.capital} - #{get_currency(country.currencies[0])} (#{country.currencies[0]})".bold.green
 
     end
+    puts "================================================================\n".bold.blue
   end
 
   def country_details(region, input)
@@ -86,7 +105,6 @@ class Countries::CLI
     currency = get_currency(country.currencies[0])
 
     # if Money::Currency.find(country.currencies[0]).name
-
 
     puts "\n Country Name - Capital - Currency - Population - Region - Calling Codes - Languages".bold.blue
     puts " -----------------------------------------------------------------------------------"
@@ -112,6 +130,11 @@ class Countries::CLI
       currency_symbol
     end
 
+  end
+
+  def digit_or_letter
+    input = gets.strip.downcase
+    input.match(/\d+/).to_s.to_i == 0 ? input : input.to_i 
   end
 
   def goodbye
