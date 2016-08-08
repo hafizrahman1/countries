@@ -28,7 +28,18 @@ class Table
   def self.display_as_summary(country)
     languages = get_languange(country.languages).join(",")
     currency = get_currency(country.currencies[0])
-    borders = country.borders.join(",")
+    
+    if !(country.borders.empty?)
+      borders = get_countries(country.borders).join(",")
+    else
+      borders = ""
+    end
+
+    if !(country.timezones == nil)
+      timezones = country.timezones.join(",")
+    else
+      timezones = ""
+    end
 
     # country.borders.select do|country_code|
     #   h = get_countries(country_code)
@@ -48,8 +59,8 @@ class Table
     puts "Longitude    : #{country.latlng[1]}"
     puts "Borders      : #{borders}"
     puts "Area         : #{country.area}"
-    puts "Timezones    : #{country.timezones.join(",")}"
-    puts "Country Code : +#{country.callingCodes.join(",")}"
+    puts "Timezones    : #{timezones}"
+    puts "Country Code : +#{country.callingCodes.first}"
     # puts "Top Domain  : #{country.topLevelDomain.join(",")}"
     puts "=============================\n".bold.blue
 
@@ -66,13 +77,14 @@ class Table
 
   end
 
-  def self.get_countries(country_symbol)
-    # country = I18nData.countries.detect do |key, value|
-    #  key == country_symbol.upcase
-    #     binding.pry
-    # end
-    # country
-    country = Iso639[country_symbol]
+  def self.get_countries(country_code_array)
+    countries = []
+    country_code_array.each do |country_code|
+      if IsoCountryCodes.find(country_code)
+        countries << IsoCountryCodes.find(country_code).name
+      end
+    end
+    countries
   end
 
   # Get the correct language from language symbol
