@@ -36,7 +36,7 @@ class Countries::CLI
     status = false
 
     until status == true
-        puts "\nEnter the number of the region you'd like to get more info on or type 'list' or 'exit':".bold.cyan
+        puts "Enter the number of the region you'd like to get more info on or type 'list' or 'exit':".bold.cyan
         input = digit_or_letter
 
         case input
@@ -49,7 +49,7 @@ class Countries::CLI
           # For specific country information from the list of countries
           new_input = nil
           while new_input != "exit"
-            puts "\nEnter the country number to get more information or type 'exit':".bold.cyan
+            puts "Enter the country number to get more information or type 'exit':".bold.cyan
             new_input = digit_or_letter
             
             case new_input
@@ -94,36 +94,26 @@ class Countries::CLI
     country = @countries[input - 1]
     Table.display_as_summary(country)
 
-    # language = get_languange(country.languages[0])
-    # currency = get_currency(country.currencies[0])
-
-    # if Money::Currency.find(country.currencies[0]).name
-
-    # puts "\n Country Name - Capital - Currency - Population - Region - Calling Codes - Languages".bold.blue
-    # puts " -----------------------------------------------------------------------------------"
-    # puts " #{country.name} - #{country.capital} - #{currency} - #{country.population} - #{region} - +#{country.callingCodes[0]} - #{language}".bold.green
-    # puts " -----------------------------------------------------------------------------------\n"
-
   end
 
-  # Get the correct language from language symbol
-  def get_languange(language_symbol)
-    language = I18nData.languages.detect do |key, value|
-      key == language_symbol.upcase
-    end
-    language.last
-  end
+  # # Get the correct language from language symbol
+  # def get_languange(language_symbol)
+  #   language = I18nData.languages.detect do |key, value|
+  #     key == language_symbol.upcase
+  #   end
+  #   language.last
+  # end
  
-  # Get the correct currency name from currency symbol
-  def get_currency(currency_symbol)
+  # # Get the correct currency name from currency symbol
+  # def get_currency(currency_symbol)
 
-    if Money::Currency.find(currency_symbol)
-      Money::Currency.find(currency_symbol).name
-    else
-      currency_symbol
-    end
+  #   if Money::Currency.find(currency_symbol)
+  #     Money::Currency.find(currency_symbol).name
+  #   else
+  #     currency_symbol
+  #   end
 
-  end
+  # end
 
   def digit_or_letter
     input = gets.strip.downcase

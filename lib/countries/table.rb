@@ -35,22 +35,23 @@ class Table
     #   binding.pry
     # end
 
-    puts "#{country.name} country details:"
-    puts "========================\n"
-    puts "Country name: #{country.name}"
-    puts "Capital     : #{country.capital}"
-    puts "Currency    : #{currency} (#{country.currencies[0]})"
-    puts "Language    : #{languages}"
-    puts "Region      : #{country.region}"
-    puts "Sub-region  : #{country.subregion}"
-    puts "Population  : #{country.population}"
-    puts "Latitude    : #{country.latlng[0]}"
-    puts "Longitude   : #{country.latlng[1]}"
-    puts "Borders     : #{borders}"
-    puts "Area        : #{country.area}"
-    puts "Timezones   : #{country.timezones.join(",")}"
-    puts "Country Code: +#{country.callingCodes.join(",")}\n"
+    puts "\nSummary details about #{country.name}:".bold.red
+    puts "=============================\n".bold.blue
+    puts "Country name : #{country.name}"
+    puts "Capital      : #{country.capital}"
+    puts "Currency     : #{currency} (#{country.currencies[0]})"
+    puts "Language     : #{languages}"
+    puts "Region       : #{country.region}"
+    puts "Sub-region   : #{country.subregion}"
+    puts "Population   : #{country.population}"
+    puts "Latitude     : #{country.latlng[0]}"
+    puts "Longitude    : #{country.latlng[1]}"
+    puts "Borders      : #{borders}"
+    puts "Area         : #{country.area}"
+    puts "Timezones    : #{country.timezones.join(",")}"
+    puts "Country Code : +#{country.callingCodes.join(",")}"
     # puts "Top Domain  : #{country.topLevelDomain.join(",")}"
+    puts "=============================\n".bold.blue
 
   end
 
