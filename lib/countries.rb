@@ -11,4 +11,5 @@ require_relative "./countries/version"
 require_relative './countries/cli'
 require_relative './countries/country'
 require_relative './countries/table'
+require_relative './countries/api_data'
 

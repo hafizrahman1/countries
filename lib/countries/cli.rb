@@ -1,9 +1,8 @@
 # Our CLI Controller
 class Countries::CLI
 
-  def call
+  def run
     greeting
-    store_countries
     list_regions
     menu
     goodbye
@@ -17,12 +16,9 @@ class Countries::CLI
     puts ">>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<< \n".blue    
   end
 
-  def store_countries
-    @regions = Countries::Country.region_list
-    @all_countries = Countries::Country.all
-  end
-
   def list_regions
+    Data.get_countries
+    @regions = Country.create_region_list
     puts "List of regions:".bold.blue
     # puts " ----------------".bold
     @regions.each.with_index(1) do |region, i|
@@ -83,7 +79,7 @@ class Countries::CLI
 
   def country_list(region)
     # select list of countries based on region
-    @countries = @all_countries.select do |country|
+    @countries = Country.all.select do |country|
       country.region == region
     end
     # print list of countries as table format
@@ -101,7 +97,6 @@ class Countries::CLI
     end
 
   end
-
 
   def digit_or_letter
     input = gets.strip.downcase

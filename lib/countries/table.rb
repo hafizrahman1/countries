@@ -6,7 +6,7 @@ class Table
 
     table :border => true do
       row :color =>'green' do
-        column '', :width => 2
+        column '', :width => 3
         column 'Country name', :width => 30, :bold => true, :align => 'center'
         column 'Capital',      :width => 30, :bold => true, :align => 'center'
         column 'Currency',     :width => 30, :bold => true, :align => 'center'
@@ -22,10 +22,10 @@ class Table
         end
       end
     end
-
     vertical_spacing 2
   end
-
+  
+  # display country details summary
   def self.display_as_summary(country)
     languages = get_languange(country.languages).join(", ")
     currency = get_currency(country.currencies[0])
@@ -41,6 +41,8 @@ class Table
     else
       timezones = "Information not available!"
     end
+
+    #header :title => "Summary details about #{country.name}:".bold.red, :width => 50, :align => 'center', :rule => true, :bold => false, :timestamp => false
 
     puts "\nSummary details about #{country.name}:".bold.red
     puts "=============================\n".bold.blue
@@ -59,19 +61,19 @@ class Table
     puts "Country Code : +#{country.callingCodes.first}"
     puts "=============================\n".bold.blue
 
+
   end
 
   # Get the correct currency name from currency symbol
   def self.get_currency(currency_symbol)
-
     if Money::Currency.find(currency_symbol)
       Money::Currency.find(currency_symbol).name
     else
       currency_symbol
     end
-
   end
-
+  
+  # Get the correct country name array from alpha3Codes array
   def self.get_countries(country_code_array)
     countries = []
     country_code_array.each do |country_code|

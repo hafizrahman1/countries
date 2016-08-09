@@ -3,4 +3,4 @@
 require "bundler/setup"
 require "countries"
 
-Countries::CLI.new.call
+Countries::CLI.new.run
