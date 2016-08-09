@@ -93,27 +93,15 @@ class Countries::CLI
   def country_details(region, input)
     country = @countries[input - 1]
     Table.display_as_summary(country)
+    puts "Would you like to browse online to see more about #{country.name}? (yes / no):"
+    input = digit_or_letter
+    if input == "yes"
+      link = "https://www.cia.gov/library/publications/the-world-factbook/geos/#{country.alpha2Code.downcase}.html"
+      Launchy.open(link)
+    end
 
   end
 
-  # # Get the correct language from language symbol
-  # def get_languange(language_symbol)
-  #   language = I18nData.languages.detect do |key, value|
-  #     key == language_symbol.upcase
-  #   end
-  #   language.last
-  # end
- 
-  # # Get the correct currency name from currency symbol
-  # def get_currency(currency_symbol)
-
-  #   if Money::Currency.find(currency_symbol)
-  #     Money::Currency.find(currency_symbol).name
-  #   else
-  #     currency_symbol
-  #   end
-
-  # end
 
   def digit_or_letter
     input = gets.strip.downcase

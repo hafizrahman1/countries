@@ -37,9 +37,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rest-client"
   spec.add_dependency "money"
   spec.add_dependency "i18n_data"
-  # spec.add_dependency "iso639"
   spec.add_dependency "iso_country_codes"
-  #spec.add_dependency "colorize"
+  spec.add_dependency "launchy"
   spec.add_dependency "command_line_reporter", ">=3.0"
 
 

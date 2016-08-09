@@ -22,29 +22,25 @@ class Table
         end
       end
     end
+
     vertical_spacing 2
   end
 
   def self.display_as_summary(country)
-    languages = get_languange(country.languages).join(",")
+    languages = get_languange(country.languages).join(", ")
     currency = get_currency(country.currencies[0])
     
     if !(country.borders.empty?)
-      borders = get_countries(country.borders).join(",")
+      borders = get_countries(country.borders).join(", ")
     else
-      borders = ""
+      borders = "Information not available!"
     end
 
     if !(country.timezones == nil)
       timezones = country.timezones.join(",")
     else
-      timezones = ""
+      timezones = "Information not available!"
     end
-
-    # country.borders.select do|country_code|
-    #   h = get_countries(country_code)
-    #   binding.pry
-    # end
 
     puts "\nSummary details about #{country.name}:".bold.red
     puts "=============================\n".bold.blue
@@ -54,14 +50,13 @@ class Table
     puts "Language     : #{languages}"
     puts "Region       : #{country.region}"
     puts "Sub-region   : #{country.subregion}"
-    puts "Population   : #{country.population}"
+    puts "Population   : #{country.population.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse}"
     puts "Latitude     : #{country.latlng[0]}"
     puts "Longitude    : #{country.latlng[1]}"
     puts "Borders      : #{borders}"
     puts "Area         : #{country.area}"
     puts "Timezones    : #{timezones}"
     puts "Country Code : +#{country.callingCodes.first}"
-    # puts "Top Domain  : #{country.topLevelDomain.join(",")}"
     puts "=============================\n".bold.blue
 
   end
@@ -96,9 +91,5 @@ class Table
       end
     end
     languages
-    # language = I18nData.languages.select do |key, value|
-    #   key == language_symbol.upcase
-    # end
-    # language.last
   end
 end
