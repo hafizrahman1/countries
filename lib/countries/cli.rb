@@ -2,13 +2,13 @@
 class Countries::CLI
 
   def run
-    greeting
+    greetings
     list_regions
     menu
     goodbye
   end
 
-  def greeting
+  def greetings
     puts "\n>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<< ".blue
     print ">>>".blue
     print "Welcome to the countries cli-gem!".bold.red
@@ -17,9 +17,9 @@ class Countries::CLI
   end
 
   def list_regions
-    Data.get_countries
-    @regions = Country.create_region_list
-    puts "List of regions:".bold.blue
+    Countries::Data.get_data
+    @regions = Countries::Country.create_region_list
+    puts "List of regions:\n".bold.underline.blue
     # puts " ----------------".bold
     @regions.each.with_index(1) do |region, i|
       puts "#{i}. #{region}".bold.red
@@ -32,21 +32,21 @@ class Countries::CLI
     status = false
 
     until status == true
-        puts "Enter the number of the region you'd like to get more info on or type 'list' or 'exit':".bold.cyan
-        input = digit_or_letter
+        puts "\nEnter the region number (1-#{@regions.size}) to get list of countries or type 'list' or 'exit':".bold.cyan
+        input = digit_or_word
 
         case input
 
         when 1..@regions.size
           input_region = @regions[input.to_i - 1]
 
-          country_list(input_region)
+          country_list_by_region(input_region)
 
           # For specific country information from the list of countries
           new_input = nil
           while new_input != "exit"
-            puts "Enter the country number to get more information or type 'exit':".bold.cyan
-            new_input = digit_or_letter
+            puts "\nEnter the country number (1-#{@countries.size}) to get more information or type 'exit':".bold.cyan
+            new_input = digit_or_word
             
             case new_input
 
@@ -54,43 +54,43 @@ class Countries::CLI
               country_details(input_region, new_input.to_i)
 
             when "list"
-              country_list(input_region)
-            # when "list-region"
-            #   menu
+              country_list_by_region(input_region)
+
             when "exit"
               break
             else
-              puts "Please enter a valid input, 1-#{@countries.size}, 'list' or 'exit':"
+              puts "\nPlease enter a valid input, 1-#{@countries.size}, 'list' or 'exit':"
             end
           end
 
         when "list"
+          Countries::Country.destroy_all
           list_regions
 
         when "exit"
           status = true
 
         else
-          puts "Please enter a valid input, 1-#{@regions.size}, 'list' or 'exit':".bold.red
+          puts "\nPlease enter a valid input, 1-#{@regions.size}, 'list' or 'exit':".bold.red
         end
     end
 
   end
 
-  def country_list(region)
-    # select list of countries based on region
-    @countries = Country.all.select do |country|
+  def country_list_by_region(region)
+    # select list of countries based on the region
+    @countries = Countries::Country.all.select do |country|
       country.region == region
     end
-    # print list of countries as table format
+    # print the list of countries as table format
     Table.display_as_table(@countries)
   end
 
   def country_details(region, input)
     country = @countries[input - 1]
     Table.display_as_summary(country)
-    puts "Would you like to browse online to see more about #{country.name}? (yes / no):"
-    input = digit_or_letter
+    puts "\nWould you like to browse online to see more about #{country.name}? 'yes' or 'no':".bold.cyan
+    input = digit_or_word
     if input == "yes"
       link = "https://www.cia.gov/library/publications/the-world-factbook/geos/#{country.alpha2Code.downcase}.html"
       Launchy.open(link)
@@ -98,14 +98,13 @@ class Countries::CLI
 
   end
 
-  def digit_or_letter
+  def digit_or_word
     input = gets.strip.downcase
     input.match(/\d+/).to_s.to_i == 0 ? input : input.to_i 
   end
 
   def goodbye
-    puts "\nThank you for using countries CLI-GEM!\n".bold.red
+    puts "\nThank you for using countries cli-gem!\n".bold.red
   end
-
 
 end

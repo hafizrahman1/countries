@@ -1,4 +1,4 @@
-class Country
+class Countries::Country
   
   attr_accessor :name, :capital, :region, :altSpellings, :relevance, :region, :subregion, 
                 :translations, :population, :latlng, :demonym, :area, :gini, :timezones, 
@@ -31,6 +31,11 @@ class Country
   # returns all the country instances
   def self.all
     @@all
+  end
+
+  # clear all the country instances
+  def self.destroy_all
+    @@all.clear
   end
 
 end

@@ -14,7 +14,7 @@ class Table
 
       countries.each.with_index(1) do |country, index|
         currency = get_currency(country.currencies[0])
-        row :color => 'yellow' do
+        row :color => 'yellow', :bold => true do
           column index
           column country.name, :color => 'red'
           column country.capital, :color => 'cyan'
@@ -42,24 +42,24 @@ class Table
       timezones = "Information not available!"
     end
 
-    #header :title => "Summary details about #{country.name}:".bold.red, :width => 50, :align => 'center', :rule => true, :bold => false, :timestamp => false
-
-    puts "\nSummary details about #{country.name}:".bold.red
-    puts "=============================\n".bold.blue
-    puts "Country name : #{country.name}"
-    puts "Capital      : #{country.capital}"
-    puts "Currency     : #{currency} (#{country.currencies[0]})"
-    puts "Language     : #{languages}"
-    puts "Region       : #{country.region}"
-    puts "Sub-region   : #{country.subregion}"
-    puts "Population   : #{country.population.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse}"
-    puts "Latitude     : #{country.latlng[0]}"
-    puts "Longitude    : #{country.latlng[1]}"
-    puts "Borders      : #{borders}"
-    puts "Area         : #{country.area}"
-    puts "Timezones    : #{timezones}"
-    puts "Country Code : +#{country.callingCodes.first}"
-    puts "=============================\n".bold.blue
+    #header :title => "Summary details about #{country.name}:".bold.red, :width => 140, :align => 'center', :rule => true, :bold => true, :timestamp => false
+    puts "\n==============================================================================================================================================".bold.blue
+    puts "\t\t\t\t\t\tSummary details about #{country.name}:".bold.red
+    puts "==============================================================================================================================================\n".bold.blue
+    puts "\tCountry name : #{country.name}".bold.green
+    puts "\tCapital      : #{country.capital}".bold.green
+    puts "\tCurrency     : #{currency} (#{country.currencies[0]})".bold.green
+    puts "\tLanguage     : #{languages}".bold.green
+    puts "\tRegion       : #{country.region}".bold.green
+    puts "\tSub-region   : #{country.subregion}".bold.green
+    puts "\tPopulation   : #{country.population.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse}".bold.green
+    puts "\tLatitude     : #{country.latlng[0]}".bold.green
+    puts "\tLongitude    : #{country.latlng[1]}".bold.green
+    puts "\tBorders      : #{borders}".bold.green
+    puts "\tArea         : #{country.area}".bold.green
+    puts "\tTimezones    : #{timezones}".bold.green
+    puts "\tCountry Code : +#{country.callingCodes.first}".bold.green
+    puts "\n==============================================================================================================================================\n".bold.blue
 
 
   end
