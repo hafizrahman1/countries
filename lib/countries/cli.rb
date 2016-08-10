@@ -48,7 +48,7 @@ class Countries::CLI
           country_list_by_region(input_region)
 
           selected_country(input_region)
-          break
+          status = true
 
         when "list"
           Countries::Country.destroy_all
@@ -83,7 +83,7 @@ class Countries::CLI
       
       when "back"
         menu
-        break
+        new_input = "exit"
 
       when "exit"
         break
