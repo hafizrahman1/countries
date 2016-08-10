@@ -44,8 +44,9 @@ class Countries::CLI
 
           # For specific country information from the list of countries
           new_input = nil
+          
           while new_input != "exit"
-            puts "\nEnter the country number (1-#{@countries.size}) to get more information or type 'exit':".bold.cyan
+            puts "\nEnter the country number (1-#{@countries.size}) to get more information or type 'back' or 'list' or 'exit':".bold.cyan
             new_input = digit_or_word
             
             case new_input
@@ -55,11 +56,14 @@ class Countries::CLI
 
             when "list"
               country_list_by_region(input_region)
+            
+            when "back"
+              break
 
             when "exit"
-              break
+              status = true
             else
-              puts "\nPlease enter a valid input, 1-#{@countries.size}, 'list' or 'exit':"
+              puts "\nPlease enter a valid input, 1-#{@countries.size} or type 'list' or 'exit':"
             end
           end
 
@@ -71,7 +75,7 @@ class Countries::CLI
           status = true
 
         else
-          puts "\nPlease enter a valid input, 1-#{@regions.size}, 'list' or 'exit':".bold.red
+          puts "\nPlease enter a valid input, 1-#{@regions.size} or type 'list' or 'exit':".bold.red
         end
     end
 
@@ -92,6 +96,7 @@ class Countries::CLI
     puts "\nWould you like to browse online to see more about #{country.name}? 'yes' or 'no':".bold.cyan
     input = digit_or_word
     if input == "yes"
+      #new_link = "http://www.worldbank.org/en/country/#{country.name.downcase}"
       link = "https://www.cia.gov/library/publications/the-world-factbook/geos/#{country.alpha2Code.downcase}.html"
       Launchy.open(link)
     end
