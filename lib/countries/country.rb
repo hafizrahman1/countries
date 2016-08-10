@@ -27,15 +27,16 @@ class Countries::Country
     end
     regions.uniq - ["", nil]
   end
+
+  def self.find_by_region(selected_region)
+    self.all.select do |country|
+      country.region == selected_region
+    end
+  end
   
   # returns all the country instances
   def self.all
     @@all
-  end
-
-  # clear all the country instances
-  def self.destroy_all
-    @@all.clear
   end
 
 end
