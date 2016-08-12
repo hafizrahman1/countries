@@ -48,7 +48,7 @@ class Countries::CLI
     status = false
 
     until status == true
-        puts "\nEnter the region number (1-#{@regions.size}) to get list of countries or type 'list' to see the choices again or 'exit':".bold.cyan
+        puts "\nEnter the region number (1-#{@regions.size}) to get list of countries or type 'list' to see the list of regions again or 'exit':".bold.cyan
         input = digit_or_word
 
         case input
@@ -71,7 +71,7 @@ class Countries::CLI
           status = true
 
         else
-          puts "\nPlease enter a valid input, 1-#{@regions.size} or type 'list' to see the choices again or 'exit':".bold.red
+          puts "\nPlease enter a valid input, 1-#{@regions.size} or type 'list' to see the list of regions again or 'exit':".bold.red
         end
     end
 
@@ -84,7 +84,7 @@ class Countries::CLI
     
     while new_input != "exit"
       puts "\nEnter the country number (1-#{@countries.size}) to get more information or type 'return' to go the previous menu or".bold.cyan
-      puts "\ntype 'list' to see the country list again or 'exit':".bold.cyan
+      puts "\ntype 'list' to see the list of countries again or 'exit':".bold.cyan
       new_input = digit_or_word
       
       case new_input
@@ -103,7 +103,7 @@ class Countries::CLI
         break
 
       else
-        puts "\nPlease enter a valid input, (1-#{@countries.size}) or type 'list' to see the country list again or 'exit':".bold.red
+        puts "\nPlease enter a valid input, (1-#{@countries.size}) or type 'list' to see the list of countries again or 'exit':".bold.red
       end
     end
   end
