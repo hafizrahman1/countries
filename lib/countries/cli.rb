@@ -16,6 +16,8 @@ class Countries::CLI
   
   # welcome greetings
   def greetings
+    
+    system "clear"
 
     puts "\n>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<< ".blue
     print ">>>".blue
@@ -33,7 +35,7 @@ class Countries::CLI
 
  # list total regions
   def list_regions
-    puts "List of regions:\n".bold.underline.blue
+    puts "List of regions:\n".bold.blue
 
     @regions.each.with_index(1) do |region, i|
       puts "#{i}. #{region}".bold.red
@@ -46,7 +48,7 @@ class Countries::CLI
     status = false
 
     until status == true
-        puts "\nEnter the region number (1-#{@regions.size}) to get list of countries or type 'list' or 'exit':".bold.cyan
+        puts "\nEnter the region number (1-#{@regions.size}) to get list of countries or type 'list' to see the choices again or 'exit':".bold.cyan
         input = digit_or_word
 
         case input
@@ -69,7 +71,7 @@ class Countries::CLI
           status = true
 
         else
-          puts "\nPlease enter a valid input, 1-#{@regions.size} or type 'list' or 'exit':".bold.red
+          puts "\nPlease enter a valid input, 1-#{@regions.size} or type 'list' to see the choices again or 'exit':".bold.red
         end
     end
 
@@ -81,7 +83,8 @@ class Countries::CLI
     new_input = nil
     
     while new_input != "exit"
-      puts "\nEnter the country number (1-#{@countries.size}) to get more information or type 'back' or 'list' or 'exit':".bold.cyan
+      puts "\nEnter the country number (1-#{@countries.size}) to get more information or type 'return' to go the previous menu or".bold.cyan
+      puts "\ntype 'list' to see the country list again or 'exit':".bold.cyan
       new_input = digit_or_word
       
       case new_input
@@ -92,7 +95,7 @@ class Countries::CLI
       when "list"
         country_list_by_region(input_region)
       
-      when "back"
+      when "return"
         menu
         new_input = "exit"
 
@@ -100,7 +103,7 @@ class Countries::CLI
         break
 
       else
-        puts "\nPlease enter a valid input, 1-#{@countries.size} or type 'list' or 'exit':".bold.red
+        puts "\nPlease enter a valid input, (1-#{@countries.size}) or type 'list' to see the country list again or 'exit':".bold.red
       end
     end
   end
@@ -126,6 +129,8 @@ class Countries::CLI
 
     if input == "yes"
       link = "https://www.cia.gov/library/publications/the-world-factbook/geos/#{country.alpha2Code.downcase}.html"
+      # link1 = "https://www.iso.org/obp/ui/#iso:code:3166:#{country.alpha2Code}"
+      # link2 = "http://data.un.org/CountryProfile.aspx?crName=#{country.name}"
       Launchy.open(link)
     end
   end

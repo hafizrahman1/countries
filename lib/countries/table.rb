@@ -5,8 +5,8 @@ class Table
     vertical_spacing 2 # number of blank lines to output
 
     table :border => true do
-      row :color =>'green' do
-        column '', :width => 3
+      row :color =>'green', :bold => true do
+        column '', :width => 2
         column 'Country name', :width => 30, :bold => true, :align => 'center'
         column 'Capital',      :width => 30, :bold => true, :align => 'center'
         column 'Currency',     :width => 30, :bold => true, :align => 'center'
