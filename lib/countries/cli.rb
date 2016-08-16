@@ -122,15 +122,22 @@ class Countries::CLI
     country = @countries[input - 1]
 
     Table.display_as_summary(country)
+    browse_online(country)
+  end
 
+  def browse_online(country)
     puts "\nWould you like to browse online to see more about #{country.name}? 'yes' or 'no':".bold.cyan
 
     input = digit_or_word
 
-    if input == "yes"
+    if input == "yes" && country.region == "Americas"
       link = "https://www.cia.gov/library/publications/the-world-factbook/geos/#{country.alpha2Code.downcase}.html"
       # link1 = "https://www.iso.org/obp/ui/#iso:code:3166:#{country.alpha2Code}"
       # link2 = "http://data.un.org/CountryProfile.aspx?crName=#{country.name}"
+      Launchy.open(link)
+
+    elsif input == "yes"
+      link = "https://www.iso.org/obp/ui/#iso:code:3166:#{country.alpha2Code}"
       Launchy.open(link)
     end
   end
